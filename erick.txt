@@ -1,0 +1,24 @@
+server {
+    listen 80;
+    server_name barovogames.com www.barovogames.com barovogames.com.br www.barovogames.com.br;
+
+    root /var/www/html;
+    index index.html;
+
+    access_log /var/log/nginx/barovogames_access.log;
+    error_log /var/log/nginx/barovogames_error.log;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # Bloqueio básico de bots e scanners
+    location ~* \.(env|git|htaccess|sql|bak|config)$ {
+        deny all;
+        return 403;
+    }
+
+    location ~ /\. {
+        deny all;
+    }
+}
